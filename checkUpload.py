@@ -22,7 +22,7 @@ from urllib3.util.retry import Retry
 CAS_RETURN_URL = "https://weixine.ustc.edu.cn/2020/caslogin"
 
 
-def sendMail(self, sub, body):
+def sendMail(sub, body):
         smtp_server = 'smtp.qq.com'
         from_mail = 'michael3400@foxmail.com'
         mail_pass = 'qfwksoqbkhzqbege'
