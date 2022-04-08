@@ -26,7 +26,7 @@ def sendMail(sub, body):
         smtp_server = 'smtp.qq.com'
         from_mail = os.environ["SERVER"]
         mail_pass = os.environ["MAILPASS"]
-        to_mail = '791813400@qq.com'
+        to_mail = os.environ["RECEIVER"]
         from_name = 'sad'
         subject = sub
         msg = MIMEText(body, 'html', 'utf-8')
