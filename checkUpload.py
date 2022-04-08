@@ -22,17 +22,10 @@ from urllib3.util.retry import Retry
 CAS_RETURN_URL = "https://weixine.ustc.edu.cn/2020/caslogin"
 
 
-class Report(object):
-    def __init__(self, stuid, password, server, mailpass):
-        self.stuid = stuid
-        self.password = password
-        self.server = server
-        self.mailpass = mailpass
-
-    def sendMail(self, sub, body):
+def sendMail(self, sub, body):
         smtp_server = 'smtp.qq.com'
-        from_mail = self.server
-        mail_pass = str(self.mailpass)
+        from_mail = 'michael3400@foxmail.com'
+        mail_pass = 'qfwksoqbkhzqbege'
         to_mail = '791813400@qq.com'
         from_name = 'sad'
         subject = sub
@@ -48,6 +41,12 @@ class Report(object):
             s.quit()
         except smtplib.SMTPException as e:
             print("Error: " + e)
+
+
+class Report(object):
+    def __init__(self, stuid, password):
+        self.stuid = stuid
+        self.password = password
 
     def report(self):
         loginsuccess = False
@@ -147,17 +146,14 @@ class Report(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='URC nCov auto report script.')
-    parser.add_argument('server', help='your mail server', type=str)
     parser.add_argument('stuid', help='your student number', type=str)
     parser.add_argument('password', help='your CAS password', type=str)
-    parser.add_argument('mailpass', help='password of SMTP', type=str)
     args = parser.parse_args()
-    autorepoter = Report(stuid=args.stuid, password=args.password, server=args.server,
-                         mailpass=args.mailpass)
+    autorepoter = Report(stuid=args.stuid, password=args.password)
     ret = autorepoter.report()
     if ret != False:
-        autorepoter.sendMail("小橙子的健康上传提醒", "小橙子提醒您本周项目都传好啦！")
+        sendMail("小橙子的健康上传提醒", "小橙子提醒您本周项目都传好啦！")
         print("传完了")
     else:
-        autorepoter.sendMail("小橙子的健康上传提醒", "小橙子提醒您本周有项目没上传，请及时上传~")
+        sendMail("小橙子的健康上传提醒", "小橙子提醒您本周有项目没上传，请及时上传~")
         print("有东西没传")
