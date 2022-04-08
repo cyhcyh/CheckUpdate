@@ -24,8 +24,8 @@ CAS_RETURN_URL = "https://weixine.ustc.edu.cn/2020/caslogin"
 
 def sendMail(sub, body):
         smtp_server = 'smtp.qq.com'
-        from_mail = 'michael3400@foxmail.com'
-        mail_pass = 'qfwksoqbkhzqbege'
+        from_mail = os.environ["SERVER"]
+        mail_pass = os.environ["MAILPASS"]
         to_mail = '791813400@qq.com'
         from_name = 'sad'
         subject = sub
