@@ -32,7 +32,7 @@ class Report(object):
     def sendMail(self, sub, body):
         smtp_server = 'smtp.qq.com'
         from_mail = self.server
-        mail_pass = self.mailpass
+        mail_pass = str(self.mailpass)
         to_mail = '791813400@qq.com'
         from_name = 'sad'
         subject = sub
