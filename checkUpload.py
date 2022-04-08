@@ -28,27 +28,26 @@ class Report(object):
         self.password = password
         self.server = server
         self.mailpass = mailpass
-        
-    def sendMail(self, sub, body):
-    smtp_server = 'smtp.qq.com'
-    from_mail = self.server
-    mail_pass = self.mailpass
-    to_mail = '791813400@qq.com'
-    from_name = 'sad'
-    subject = sub
 
-    msg = MIMEText(body, 'html', 'utf-8')
-    msg['Subject'] = Header(subject, 'utf-8')
-    msg['From'] = Header("小橙子", 'utf-8')
-    msg['To'] = Header(','.join(to_mail))
-    # msg = '\n'.join(mail)
-    try:
-        s = smtplib.SMTP_SSL('smtp.qq.com', 465)
-        s.login(from_mail, mail_pass)
-        s.sendmail(from_mail, to_mail, msg.as_string())
-        s.quit()
-    except smtplib.SMTPException as e:
-        print("Error: " + e)
+    def sendMail(self, sub, body):
+        smtp_server = 'smtp.qq.com'
+        from_mail = self.server
+        mail_pass = self.mailpass
+        to_mail = '791813400@qq.com'
+        from_name = 'sad'
+        subject = sub
+        msg = MIMEText(body, 'html', 'utf-8')
+        msg['Subject'] = Header(subject, 'utf-8')
+        msg['From'] = Header("小橙子", 'utf-8')
+        msg['To'] = Header(','.join(to_mail))
+        # msg = '\n'.join(mail)
+        try:
+            s = smtplib.SMTP_SSL('smtp.qq.com', 465)
+            s.login(from_mail, mail_pass)
+            s.sendmail(from_mail, to_mail, msg.as_string())
+            s.quit()
+        except smtplib.SMTPException as e:
+            print("Error: " + e)
 
     def report(self):
         loginsuccess = False
