@@ -152,7 +152,7 @@ if __name__ == "__main__":
     autorepoter = Report(stuid=args.stuid, password=args.password)
     ret = autorepoter.report()
     if ret != False:
-        sendMail("小橙子的健康上传提醒", "小橙子提醒您本周项目都传好啦！")
+        # sendMail("小橙子的健康上传提醒", "小橙子提醒您本周项目都传好啦！")
         print("传完了")
     else:
         sendMail("小橙子的健康上传提醒", "小橙子提醒您本周有项目没上传，请及时上传~")
