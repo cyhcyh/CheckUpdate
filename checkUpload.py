@@ -22,10 +22,17 @@ from urllib3.util.retry import Retry
 CAS_RETURN_URL = "https://weixine.ustc.edu.cn/2020/caslogin"
 
 
-def sendMail(sub, body):
+class Report(object):
+    def __init__(self, stuid, password, server, mailpass):
+        self.stuid = stuid
+        self.password = password
+        self.server = server
+        self.mailpass = mailpass
+        
+    def sendMail(self, sub, body):
     smtp_server = 'smtp.qq.com'
-    from_mail = 'michael3400@foxmail.com'
-    mail_pass = 'qfwksoqbkhzqbege'
+    from_mail = self.server
+    mail_pass = self.mailpass
     to_mail = '791813400@qq.com'
     from_name = 'sad'
     subject = sub
@@ -42,16 +49,6 @@ def sendMail(sub, body):
         s.quit()
     except smtplib.SMTPException as e:
         print("Error: " + e)
-
-
-class Report(object):
-    def __init__(self, stuid, password, data_path, emer_person, relation, emer_phone):
-        self.stuid = stuid
-        self.password = password
-        self.data_path = data_path
-        self.emer_person = emer_person
-        self.relation = relation
-        self.emer_phone = emer_phone
 
     def report(self):
         loginsuccess = False
@@ -151,19 +148,17 @@ class Report(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='URC nCov auto report script.')
-    parser.add_argument('data_path', help='path to your own data used for post method', type=str)
+    parser.add_argument('server', help='your mail server', type=str)
     parser.add_argument('stuid', help='your student number', type=str)
     parser.add_argument('password', help='your CAS password', type=str)
-    parser.add_argument('emer_person', help='emergency person', type=str)
-    parser.add_argument('relation', help='relationship between you and he/she', type=str)
-    parser.add_argument('emer_phone', help='phone number', type=str)
+    parser.add_argument('mailpass', help='password of SMTP', type=str)
     args = parser.parse_args()
-    autorepoter = Report(stuid=args.stuid, password=args.password, data_path=args.data_path,
-                         emer_person=args.emer_person, relation=args.relation, emer_phone=args.emer_phone)
+    autorepoter = Report(stuid=args.stuid, password=args.password, server=args.server,
+                         mailpass=args.mailpass)
     ret = autorepoter.report()
     if ret != False:
-        # sendMail("小橙子的健康上传提醒", "小橙子提醒您本周项目都传好啦！")
+        autorepoter.sendMail("小橙子的健康上传提醒", "小橙子提醒您本周项目都传好啦！")
         print("传完了")
     else:
-        sendMail("小橙子的健康上传提醒", "小橙子提醒您本周有项目没上传，请及时上传~")
+        autorepoter.sendMail("小橙子的健康上传提醒", "小橙子提醒您本周有项目没上传，请及时上传~")
         print("有东西没传")
