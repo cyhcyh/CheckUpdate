@@ -65,7 +65,7 @@ class Report(object):
         if not loginsuccess:
             return False
 
-        # 自动出校报备
+        # 检测上传内容
         tips = ["行程卡", "安康码", "核酸报告"]
         flag = [False, False, False, False]
         data = session.get("https://weixine.ustc.edu.cn/2020/upload/xcm").text
