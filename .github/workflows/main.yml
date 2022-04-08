@@ -32,5 +32,6 @@ jobs:
         PASSWORD: ${{ secrets.Password }}
         SERVER: ${{ secrets.Server }}
         MAILPASS: ${{ secrets.Mailpass }}
+        RECEIVER: ${{ secrets.Receiver }}
       run: |
         python checkUpload.py "$STUID" "$PASSWORD"
