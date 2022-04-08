@@ -30,7 +30,5 @@ jobs:
       env:
         STUID: ${{ secrets.Stuid }}
         PASSWORD: ${{ secrets.Password }}
-        SERVER: ${{ secrets.Server }}
-        MAILPASS: ${{ secrets.Mailpass }}
       run: |
-        python checkUpload.py "$STUID" "$PASSWORD" "$SERVER" "$MAILPASS"
+        python checkUpload.py "$STUID" "$PASSWORD"
