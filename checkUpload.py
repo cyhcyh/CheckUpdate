@@ -89,7 +89,7 @@ class Report(object):
                 print(delta)
                 print("Delta_Negative is ")
                 print(delta_nega)
-                if delta.days < 6 or delta_nega.days < 6:
+                if delta.days < 6 or delta_nega.days > -7:
                     flag[i] = True
                     print("这周" + tips[i] + "上传过了")
                 else:
