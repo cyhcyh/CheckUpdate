@@ -74,26 +74,27 @@ class Report(object):
             "p", {"style": "clear: both"})
         # flag = False
         print(token)
-        for i in range(3):
-            if pattern.search(token[i].text) is not None:
-                date = pattern.search(token[i].text).group()
-                print("Latest Update: " + date)
-                date = date + " +0800"
-                reporttime = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S %z")
-                print("Updatetime : " + format(reporttime))
-                timenow = datetime.datetime.now(pytz.timezone('Asia/Shanghai'))
-                print("Nowtime : " + format(timenow))
-                delta = timenow - reporttime
-                delta_nega = reporttime - timenow
-                print("Delta is ")
-                print(delta)
-                print("Delta_Negative is ")
-                print(delta_nega)
-                if delta.days < 6 or delta_nega.days > -7:
-                    flag[i] = True
-                    print("这周" + tips[i] + "上传过了")
-                else:
-                    print("您本周" + tips[i] + "没上传")
+        if len(token) == 3:
+            for i in range(3):
+                if pattern.search(token[i].text) is not None:
+                    date = pattern.search(token[i].text).group()
+                    print("Latest Update: " + date)
+                    date = date + " +0800"
+                    reporttime = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S %z")
+                    print("Updatetime : " + format(reporttime))
+                    timenow = datetime.datetime.now(pytz.timezone('Asia/Shanghai'))
+                    print("Nowtime : " + format(timenow))
+                    delta = timenow - reporttime
+                    delta_nega = reporttime - timenow
+                    print("Delta is ")
+                    print(delta)
+                    print("Delta_Negative is ")
+                    print(delta_nega)
+                    if delta.days < 6 or delta_nega.days > -7:
+                        flag[i] = True
+                        print("这周" + tips[i] + "上传过了")
+                    else:
+                        print("您本周" + tips[i] + "没上传")
         if flag[0] == True and flag[1] == True and flag[2] == True:
             flag[3] = True
             print("您本周已全部上传!")
